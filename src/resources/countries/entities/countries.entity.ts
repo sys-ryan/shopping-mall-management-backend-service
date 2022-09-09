@@ -7,14 +7,24 @@ export class Countries {
   @PrimaryGeneratedColumn()
   country_index: number;
 
-  @Column({ type: "int", comment: "이 컬럼은 국가 코드를 나타냅니다." })
-  country_code: number;
+  @Column({ type: "int", name: "country_code", comment: "이 컬럼은 국가 코드를 나타냅니다." })
+  countryCode: number;
 
-  @Column({ type: "varchar", length: 3, comment: "이 컬럼은 Country Dialing Code를 나타냅니다." })
-  country_decode: string;
+  @Column({
+    type: "varchar",
+    name: "country_decode",
+    length: 3,
+    comment: "이 컬럼은 Country Dialing Code를 나타냅니다.",
+  })
+  countryDecode: string;
 
-  @Column({ type: "varchar", length: 50, comment: "이 컬럼은 국가명을 나타냅니다." })
-  country_name: string;
+  @Column({
+    type: "varchar",
+    name: "country_name",
+    length: 50,
+    comment: "이 컬럼은 국가명을 나타냅니다.",
+  })
+  countryName: string;
 
   @OneToMany(() => DeliveryCosts, (deliveryCost) => deliveryCost.country)
   @JoinColumn()
