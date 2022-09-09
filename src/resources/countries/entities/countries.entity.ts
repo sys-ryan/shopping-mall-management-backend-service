@@ -1,5 +1,6 @@
 import { DeliveryCosts } from "../../delivery_costs/entities/delivery_costs.entity";
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Orders } from "src/resources/orders/entities/orders.entity";
 
 @Entity()
 export class Countries {
@@ -18,4 +19,7 @@ export class Countries {
   @OneToMany(() => DeliveryCosts, (deliveryCost) => deliveryCost.country)
   @JoinColumn()
   deliveryCosts: DeliveryCosts[];
+
+  @OneToMany(() => Orders, (order) => order.country)
+  orders: Orders[];
 }
