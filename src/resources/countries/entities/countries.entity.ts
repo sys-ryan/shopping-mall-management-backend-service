@@ -4,8 +4,8 @@ import { Orders } from "src/resources/orders/entities/orders.entity";
 
 @Entity()
 export class Countries {
-  @PrimaryGeneratedColumn()
-  country_index: number;
+  @PrimaryGeneratedColumn({ name: "country_index" })
+  countryIndex: number;
 
   @Column({ type: "int", name: "country_code", comment: "이 컬럼은 국가 코드를 나타냅니다." })
   countryCode: number;
