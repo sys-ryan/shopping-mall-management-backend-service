@@ -8,7 +8,7 @@ import { UsersModule } from "./resources/users/users.module";
 import { CountriesModule } from "./resources/countries/countries.module";
 import { DeliveryCostsModule } from "./resources/delivery_costs/delivery_costs.module";
 import { CouponTypesModule } from "./resources/coupon_types/coupon_types.module";
-import { CouponesModule } from "./resources/coupones/coupones.module";
+import { CouponsModule } from "./resources/coupons/coupons.module";
 import { DeliveriesModule } from "./resources/deliveries/deliveries.module";
 import { OrdersModule } from "./resources/orders/orders.module";
 
@@ -30,7 +30,7 @@ import { OrdersModule } from "./resources/orders/orders.module";
     CountriesModule,
     DeliveryCostsModule,
     CouponTypesModule,
-    CouponesModule,
+    CouponsModule,
     DeliveriesModule,
     OrdersModule,
   ],

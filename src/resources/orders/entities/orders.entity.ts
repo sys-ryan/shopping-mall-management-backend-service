@@ -1,6 +1,7 @@
 import { Countries } from "src/resources/countries/entities/countries.entity";
+import { Coupons } from "src/resources/coupons/entities/coupons.entity";
 import { Users } from "src/resources/users/entities/users.entity";
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Orders {
@@ -12,4 +13,8 @@ export class Orders {
 
   @ManyToOne(() => Countries, (country) => country.orders)
   country: Countries;
+
+  @OneToOne(() => Coupons, (coupon) => coupon.order)
+  @JoinColumn()
+  coupon: Coupons;
 }
