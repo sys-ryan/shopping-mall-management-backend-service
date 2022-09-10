@@ -10,6 +10,7 @@ export enum DELIVERY_STATUS_ENUM {
 }
 
 export enum PAY_STATE_ENUM {
+  IN_PROGRESS = "in_progress",
   COMPLETED = "completed",
   CANCELED = "canceled",
 }
