@@ -12,11 +12,11 @@ export class Countries {
 
   @Column({
     type: "varchar",
-    name: "country_decode",
+    name: "country_dcode",
     length: 3,
     comment: "이 컬럼은 Country Dialing Code를 나타냅니다.",
   })
-  countryDecode: string;
+  countryDcode: string;
 
   @Column({
     type: "varchar",
