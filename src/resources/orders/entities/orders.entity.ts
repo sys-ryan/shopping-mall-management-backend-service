@@ -54,6 +54,7 @@ export class Orders {
     name: "final_price",
     precision: 8,
     scale: 2,
+    default: 0,
     comment:
       "해당 컬럼은 상품할인 쿠폰을 적용했을 경우, 주문자가 지불해야할 상품의 금액을 나타냅니다.",
   })
@@ -61,36 +62,14 @@ export class Orders {
 
   @Column({
     type: "decimal",
-    name: "discounted_delivery_cost",
-    precision: 8,
-    scale: 2,
-    comment: "해당 컬럼은 배송비 할인 쿠폰을 적용했을 경우, 할인되는 배송비를 나타냅니다.",
-    default: 0,
-  })
-  discountedDeliveryCost: number;
-
-  @Column({
-    type: "decimal",
-    name: "final_delivery_cost",
-    precision: 8,
-    scale: 2,
-    comment:
-      "해당 컬럼은 배송비 할인 쿠폰을 적용했을 경우, 주문자가 지불해야할 배송비를 나타냅니다.",
-  })
-  finalDeliveryCost: number;
-
-  @Column({
-    type: "decimal",
     name: "total_price",
     precision: 8,
     scale: 2,
+    default: 0,
     comment:
       "해당 컬럼은 상품할인 또는 배송비 할인이 적용된 상품 가격과 배송비를 모두 합한 가격을 나타냅니다.",
   })
   totalPrice: number;
-
-  @Column({ type: "varchar", length: 100, comment: "해당 컬럼은 배송자 명을 나타냅니다." })
-  buyr_name: string;
 
   @Column({ type: "varchar", length: 20, comment: "해당 컬럼은 배송지 우편번호를 나타냅니다." })
   buyr_zipx: string;
@@ -101,14 +80,14 @@ export class Orders {
   @Column({ type: "int", comment: "해당 컬럼은 vccode를 나타냅니다." })
   vccode: number;
 
-  @CreateDateColumn({ comment: "해당 컬럼은 주문이 생성된 시간을 나타냅니다." })
+  @CreateDateColumn({ name: "created_at", comment: "해당 컬럼은 주문이 생성된 시간을 나타냅니다." })
   createdAt: Date;
 
-  @UpdateDateColumn({ comment: "해당 컬럼은 주문이 수정된 시간을 나타냅니다." })
+  @UpdateDateColumn({
+    name: "updated_at",
+    comment: "해당 컬럼은 주문이 수정된 시간을 나타냅니다.",
+  })
   updatedAt: Date;
-
-  @Column({ comment: "해당 컬럼은 주문이 취소된 시간을 나타냅니다." })
-  canceledAt: Date;
 
   @ManyToOne(() => Users, (user) => user.orders)
   user: Users;
