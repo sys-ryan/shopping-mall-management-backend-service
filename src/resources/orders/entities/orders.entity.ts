@@ -72,10 +72,20 @@ export class Orders {
   })
   totalPrice: number;
 
-  @Column({ type: "varchar", length: 20, comment: "해당 컬럼은 배송지 우편번호를 나타냅니다." })
+  @Column({
+    type: "varchar",
+    name: "buyr_zipx",
+    length: 20,
+    comment: "해당 컬럼은 배송지 우편번호를 나타냅니다.",
+  })
   buyrZipx: string;
 
-  @Column({ type: "varchar", length: 50, comment: "해당 컬럼은 배송지 도시를 나타냅니다." })
+  @Column({
+    type: "varchar",
+    name: "buyr_city",
+    length: 50,
+    comment: "해당 컬럼은 배송지 도시를 나타냅니다.",
+  })
   buyrCity: string;
 
   @Column({ type: "int", comment: "해당 컬럼은 vccode를 나타냅니다." })
