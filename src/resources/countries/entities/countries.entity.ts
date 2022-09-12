@@ -4,11 +4,16 @@ import { Orders } from "src/resources/orders/entities/orders.entity";
 
 @Entity()
 export class Countries {
-  @PrimaryGeneratedColumn({ name: "country_index" })
-  countryIndex: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Column({ type: "int", name: "country_code", comment: "이 컬럼은 국가 코드를 나타냅니다." })
-  countryCode: number;
+  @Column({
+    type: "varchar",
+    length: 4,
+    name: "country_code",
+    comment: "이 컬럼은 국가 코드를 나타냅니다.",
+  })
+  countryCode: string;
 
   @Column({
     type: "varchar",
