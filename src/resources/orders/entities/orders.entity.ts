@@ -23,6 +23,7 @@ export class Orders {
     type: "enum",
     name: "pay_state",
     enum: PAY_STATE_ENUM,
+    default: PAY_STATE_ENUM.IN_PROGRESS,
     comment: "해당 컬럼은 주문에 대한 결제 완료 여부를 나타냅니다.",
   })
   payState: PAY_STATE_ENUM;
@@ -72,10 +73,10 @@ export class Orders {
   totalPrice: number;
 
   @Column({ type: "varchar", length: 20, comment: "해당 컬럼은 배송지 우편번호를 나타냅니다." })
-  buyr_zipx: string;
+  buyrZipx: string;
 
   @Column({ type: "varchar", length: 50, comment: "해당 컬럼은 배송지 도시를 나타냅니다." })
-  buyr_city: string;
+  buyrCity: string;
 
   @Column({ type: "int", comment: "해당 컬럼은 vccode를 나타냅니다." })
   vccode: number;
