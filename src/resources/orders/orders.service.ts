@@ -1,11 +1,44 @@
-import { Injectable } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { CountriesService } from "../countries/countries.service";
+import { Users } from "../users/entities/users.entity";
+import { UsersService } from "../users/users.service";
+import { CreateOrderDto } from "./dto/create-order.dto";
+import { UpdateOrderDto } from "./dto/update-order.dto";
+import { Orders } from "./entities/orders.entity";
 
 @Injectable()
 export class OrdersService {
-  create(createOrderDto: CreateOrderDto) {
-    return 'This action adds a new order';
+  constructor(
+    @InjectRepository(Orders) private ordersRepository: Repository<Orders>,
+    private usersService: UsersService,
+    private countriesService: CountriesService
+  ) {}
+
+  async create(createOrderDto: CreateOrderDto) {
+    const { quantity, originalPrice, buyrZipx, buyrCity, vccode } = createOrderDto;
+    const user = await this.usersService.findOneById(createOrderDto.userId);
+    const country = await this.countriesService.findOneByCountryCode(createOrderDto.countryCode);
+
+    // TODO : coupon
+
+    const newOrder = await this.ordersRepository.create({
+      user,
+      country,
+      // TODO: coupon
+      quantity,
+      originalPrice,
+      buyrZipx,
+      buyrCity,
+      vccode,
+    });
+
+    await this.ordersRepository.save(newOrder);
+
+    return {
+      message: "The order was successfully created.",
+    };
   }
 
   findAll() {
