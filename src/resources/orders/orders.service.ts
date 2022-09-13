@@ -1,15 +1,14 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { filter } from "rxjs";
 import { COUPONE_TYPE_ENUM, PAY_STATE_ENUM } from "src/common/enums";
 import { Between, FindOptionsWhere, Like, Repository } from "typeorm";
 import { CountriesService } from "../countries/countries.service";
 import { CouponsService } from "../coupons/coupons.service";
 import { Coupons } from "../coupons/entities/coupons.entity";
 import { DeliveryCostsService } from "../delivery_costs/delivery_costs.service";
-import { Users } from "../users/entities/users.entity";
 import { UsersService } from "../users/users.service";
 import { CreateOrderDto, CreateOrderResponseDto } from "./dto/create-order.dto";
+import { DeleteOrderResponseDto } from "./dto/delete-order.dto";
 import { FindOrdersDto } from "./dto/find-orders.dto";
 import { UpdateOrderDto } from "./dto/update-order.dto";
 import { Orders } from "./entities/orders.entity";
@@ -165,7 +164,7 @@ export class OrdersService {
     return orders;
   }
 
-  async findOneById(id: number) {
+  async findOneById(id: number): Promise<Orders> {
     const order = await this.ordersRepository.findOne({ where: { id } });
     if (!order) {
       throw new NotFoundException("Order not found.");
@@ -182,7 +181,13 @@ export class OrdersService {
     return `This action updates a #${id} order`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} order`;
+  async remove(id: number): Promise<DeleteOrderResponseDto> {
+    const order = await this.findOneById(id);
+
+    await this.ordersRepository.remove(order);
+
+    return {
+      message: `Order(id: ${id}) was successfully deleted.`,
+    };
   }
 }
