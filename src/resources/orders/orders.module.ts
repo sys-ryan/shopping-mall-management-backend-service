@@ -11,5 +11,6 @@ import { CountriesModule } from "../countries/countries.module";
   imports: [TypeOrmModule.forFeature([Orders, Users]), UsersModule, CountriesModule],
   controllers: [OrdersController],
   providers: [OrdersService],
+  exports: [OrdersService],
 })
 export class OrdersModule {}

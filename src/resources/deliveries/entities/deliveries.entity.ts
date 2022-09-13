@@ -10,6 +10,7 @@ export class Deliveries {
   @Column({
     type: "enum",
     enum: DELIVERY_STATUS_ENUM,
+    default: DELIVERY_STATUS_ENUM.SHIPPING,
     comment: "해당 컬럼은 배송 상태를 나타냅니다.",
   })
   status: DELIVERY_STATUS_ENUM;
