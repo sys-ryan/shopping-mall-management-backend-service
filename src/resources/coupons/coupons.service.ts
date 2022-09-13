@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CouponTypesService } from "../coupon_types/coupon_types.service";
 import { CreateCouponDto, CreateCouponResponseDto } from "./dto/create-coupon.dto";
-import { UpdateCouponDto } from "./dto/update-coupon.dto";
 import { Coupons } from "./entities/coupons.entity";
 
 import { v4 as uuidv4 } from "uuid";
@@ -17,8 +16,7 @@ export class CouponsService {
   constructor(
     @InjectRepository(Coupons) private couponsRepository: Repository<Coupons>,
     @InjectRepository(Orders) private ordersRepository: Repository<Orders>,
-    private couponTypesService: CouponTypesService,
-    private deliveryCostsService: DeliveryCostsService
+    private couponTypesService: CouponTypesService
   ) {}
 
   /**
@@ -70,43 +68,9 @@ export class CouponsService {
     await this.couponsRepository.save(coupon);
   }
 
-  async setDiscountAmount(amount: number) {}
-  // async useCoupon(code: string, orderId: number) {
-  //   const coupon = await this.findOneByCouponCode(code);
-
-  //   // 쿠폰 사용 여부 검증
-  //   if (coupon.isUsed) {
-  //     throw new BadRequestException("Coupon already used.");
-  //   }
-
-  //   const order = await this.ordersRepository.findOne({ where: { id: orderId } });
-  //   if (!order) {
-  //     throw new NotFoundException(`Order (id: ${orderId}) not found.`);
-  //   }
-
-  //   const deliveryCost = await this.deliveryCostsService.findOneByCountryCode(
-  //     order.country.countryCode
-  //   );
-
-  //   return deliveryCost;
-
-  //   // TODO: order -> 쿠폰 정보 추가 및 쿠폰 적용 후 가격 관련 필드 업데이트
-  //   order.coupon = coupon;
-
-  //   // TODO: coupon 엔터티 사용 처리
-  //   // const deliveryCost = await this.deliveryCostsService.findOneByCountryCode();
-  //   // return deliveryCost;
-
-  //   if (coupon.couponType.type === COUPONE_TYPE_ENUM.SHIPPING_FEE) {
-  //     // TODO: 배송비 할인 처리
-  //   } else if (coupon.couponType.type === COUPONE_TYPE_ENUM.FIXED_VALUE) {
-  //     // TODO: 정액 할인 처리
-  //   } else if (coupon.couponType.type === COUPONE_TYPE_ENUM.PERCENTAGE) {
-  //     // TODO: % 할인 처리
-  //   }
-
-  //   return coupon;
-  // }
+  async setDiscountAmount(amount: number) {
+    // TODO: 쿠폰에 discount amount 설정 기능
+  }
 
   findAll() {
     return `This action returns all coupons`;
@@ -123,10 +87,6 @@ export class CouponsService {
     }
 
     return coupon;
-  }
-
-  update(id: number, updateCouponDto: UpdateCouponDto) {
-    return `This action updates a #${id} coupon`;
   }
 
   async remove(code: string): Promise<DeleteCouponResponseDto> {

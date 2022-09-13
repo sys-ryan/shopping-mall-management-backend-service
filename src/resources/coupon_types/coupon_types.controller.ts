@@ -1,9 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpCode } from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, Delete, Query, HttpCode } from "@nestjs/common";
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CouponTypesService } from "./coupon_types.service";
 import { CreateCouponTypeDto, CreateCouponTypeResponseDto } from "./dto/create-coupon_type.dto";
 import { FindCouponTypeDto } from "./dto/find-coupon_type.dto";
-import { UpdateCouponTypeDto } from "./dto/update-coupon_type.dto";
 import { CouponTypes } from "./entities/coupon_types.entity";
 
 @ApiTags("CouponTypes API")
@@ -40,15 +39,5 @@ export class CouponTypesController {
   @Get(":id")
   findOneById(@Param("id") id: string): Promise<CouponTypes> {
     return this.couponTypesService.findOneById(+id);
-  }
-
-  @Patch(":id")
-  update(@Param("id") id: string, @Body() updateCouponTypeDto: UpdateCouponTypeDto) {
-    return this.couponTypesService.update(+id, updateCouponTypeDto);
-  }
-
-  @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.couponTypesService.remove(+id);
   }
 }
