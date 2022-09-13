@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import { COUPONE_TYPE_ENUM } from "src/common/enums";
 import { DeliveryCostsService } from "../delivery_costs/delivery_costs.service";
 import { Orders } from "../orders/entities/orders.entity";
+import { DeleteCouponResponseDto } from "./dto/delete-coupon.dto";
 
 @Injectable()
 export class CouponsService {
@@ -54,6 +55,12 @@ export class CouponsService {
     if (coupon.isUsed) {
       throw new BadRequestException("Coupon already used.");
     }
+
+    if (coupon.isDeleted) {
+      throw new BadRequestException("Invalid coupon");
+    }
+
+    // TODO: 쿠폰 만료기간 체크
 
     coupon.isUsed = true;
 
@@ -119,7 +126,13 @@ export class CouponsService {
     return `This action updates a #${id} coupon`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} coupon`;
+  async remove(code: string): Promise<DeleteCouponResponseDto> {
+    const coupon = await this.findOneByCouponCode(code);
+    coupon.isDeleted = true;
+    await this.couponsRepository.save(coupon);
+
+    return {
+      message: `Coupon (code: ${code}) was successfully deleted.`,
+    };
   }
 }
