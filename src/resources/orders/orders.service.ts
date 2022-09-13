@@ -66,7 +66,7 @@ export class OrdersService {
 
     const finalDeliveryCost = originalDeliveryCost - discountedDeliveryCost;
 
-    // TODO: 상품 가격 계산 (쿠폰이 있다면 적용)
+    // 상품 가격 계산 (쿠폰이 있다면 적용)
     let discountedPrice = 0;
 
     // 정액 할인 쿠폰일 경우 처리
