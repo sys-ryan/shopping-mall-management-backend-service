@@ -5,15 +5,12 @@ import { UpdateOrderDto } from "./dto/update-order.dto";
 import { FindOrdersDto } from "./dto/find-orders.dto";
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Orders } from "./entities/orders.entity";
+import { DeleteOrderResponseDto } from "./dto/delete-order.dto";
 
 @ApiTags("Orders API")
 @Controller("orders")
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
-
-  async changeDeliveryStatus() {
-    // TODO: 주문 발송 처리 기능
-  }
 
   @ApiOperation({
     summary: "주문 생성 API",
@@ -37,8 +34,8 @@ export class OrdersController {
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.ordersService.findOne(+id);
+  findOneById(@Param("id") id: string): Promise<Orders> {
+    return this.ordersService.findOneById(+id);
   }
 
   @Patch(":id")
@@ -47,7 +44,7 @@ export class OrdersController {
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
+  remove(@Param("id") id: string): Promise<DeleteOrderResponseDto> {
     return this.ordersService.remove(+id);
   }
 }
