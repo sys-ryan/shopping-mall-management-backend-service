@@ -88,6 +88,7 @@ export class OrdersService {
       country,
       quantity,
       // coupon
+      coupon,
       originalPrice,
       discountedPrice,
       finalPrice,
@@ -104,9 +105,9 @@ export class OrdersService {
 
     // 쿠폰에 실제 할인 가격 정보 set
     if (discountedPrice !== 0) {
-      await this.couponsService.setDiscountAmount(discountedPrice);
+      await this.couponsService.setDiscountAmount(coupon.id, discountedPrice);
     } else if (discountedDeliveryCost !== 0) {
-      await this.couponsService.setDiscountAmount(discountedDeliveryCost);
+      await this.couponsService.setDiscountAmount(coupon.id, discountedDeliveryCost);
     }
 
     return {

@@ -68,8 +68,16 @@ export class CouponsService {
     await this.couponsRepository.save(coupon);
   }
 
-  async setDiscountAmount(amount: number) {
+  async setDiscountAmount(couponId: number, amount: number) {
     // TODO: 쿠폰에 discount amount 설정 기능
+    const coupon = await this.couponsRepository.findOne({ where: { id: couponId } });
+    if (!coupon) {
+      throw new NotFoundException("Coupon not found.");
+    }
+
+    coupon.discountAmount = amount;
+
+    await this.couponsRepository.save(coupon);
   }
 
   findAll() {
