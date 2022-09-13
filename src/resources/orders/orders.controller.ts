@@ -11,6 +11,10 @@ import { Orders } from "./entities/orders.entity";
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
+  async changeDeliveryStatus() {
+    // TODO: 주문 발송 처리 기능
+  }
+
   @ApiOperation({
     summary: "주문 생성 API",
     description: "주문을 생성합니다.",
