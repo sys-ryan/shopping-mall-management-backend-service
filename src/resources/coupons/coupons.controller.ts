@@ -1,19 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Query,
-  ParseIntPipe,
-} from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, Delete } from "@nestjs/common";
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CouponsService } from "./coupons.service";
 import { CreateCouponDto, CreateCouponResponseDto } from "./dto/create-coupon.dto";
 import { DeleteCouponResponseDto } from "./dto/delete-coupon.dto";
-import { UpdateCouponDto } from "./dto/update-coupon.dto";
 
 @ApiTags("Coupons API")
 @Controller("coupons")
@@ -33,11 +22,6 @@ export class CouponsController {
     return this.couponsService.create(createCouponDto);
   }
 
-  // @Post(":code")
-  // useCoupon(@Param("code") code: string, @Query("orderId", ParseIntPipe) orderId: number) {
-  //   return this.couponsService.useCoupon(code, orderId);
-  // }
-
   @Get()
   findAll() {
     return this.couponsService.findAll();
@@ -46,11 +30,6 @@ export class CouponsController {
   @Get(":code")
   findOneByCouponCode(@Param("code") code: string) {
     return this.couponsService.findOneByCouponCode(code);
-  }
-
-  @Patch(":id")
-  update(@Param("id") id: string, @Body() updateCouponDto: UpdateCouponDto) {
-    return this.couponsService.update(+id, updateCouponDto);
   }
 
   @Delete(":code")

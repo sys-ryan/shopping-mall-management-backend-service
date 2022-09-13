@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { FindOptionsWhere, Like, Repository } from "typeorm";
 import { CreateCouponTypeDto, CreateCouponTypeResponseDto } from "./dto/create-coupon_type.dto";
 import { FindCouponTypeDto } from "./dto/find-coupon_type.dto";
-import { UpdateCouponTypeDto } from "./dto/update-coupon_type.dto";
 import { CouponTypes } from "./entities/coupon_types.entity";
 
 @Injectable()
@@ -53,13 +52,5 @@ export class CouponTypesService {
     }
 
     return couponType;
-  }
-
-  update(id: number, updateCouponTypeDto: UpdateCouponTypeDto) {
-    return `This action updates a #${id} couponType`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} couponType`;
   }
 }
