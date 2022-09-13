@@ -10,14 +10,17 @@ export class UsersService {
   constructor(@InjectRepository(Users) private usersRepository: Repository<Users>) {}
 
   create(createUserDto: CreateUserDto) {
+    // TODO: User 추가 기능
     return "This action adds a new user";
   }
 
   findAll() {
+    // TODO: User 목록 조회 기능
     return `This action returns all users`;
   }
 
   findOne(id: number) {
+    // TODO: User 조회 기능
     return `This action returns a #${id} user`;
   }
 
@@ -35,11 +38,8 @@ export class UsersService {
     return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
   remove(id: number) {
+    // TODO: User삭제 기능
     return `This action removes a #${id} user`;
   }
 }

@@ -23,16 +23,6 @@ export class DeliveryCostsService {
     return `This action returns all deliveryCosts`;
   }
 
-  // async findOneByCountryCode(countryCode: string) {
-  //   // const country = await this.countriesService.findOneByCountryCode(countryCode);
-
-  //   const deliveryCost = await this.deliveryCostsRepository.findOne({
-  //     where: { country: { countryCode } },
-  //   });
-
-  //   return deliveryCost;
-  // }
-
   async findOne(countryCode: string, quantity: number) {
     const deliveryCost = await this.deliveryCostsRepository.findOne({
       where: {

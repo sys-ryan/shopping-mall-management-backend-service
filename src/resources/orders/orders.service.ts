@@ -174,6 +174,7 @@ export class OrdersService {
   }
 
   findOne(id: number) {
+    // TODO: Order id로 Order 조회 기능 구현
     return `This action returns a #${id} order`;
   }
 

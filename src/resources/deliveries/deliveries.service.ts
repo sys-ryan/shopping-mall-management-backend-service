@@ -33,10 +33,12 @@ export class DeliveriesService {
   }
 
   findAll() {
+    // TODO: 배송 목록 조회 기능
     return `This action returns all deliveries`;
   }
 
   findOne(id: number) {
+    // TODO: 배송 정보 조회 기능
     return `This action returns a #${id} delivery`;
   }
 
@@ -77,9 +79,5 @@ export class DeliveriesService {
     return {
       message: `Delivery(id: ${id}) was successfully updated.`,
     };
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} delivery`;
   }
 }

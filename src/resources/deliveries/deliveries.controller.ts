@@ -5,7 +5,6 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
   HttpCode,
   Query,
   ParseIntPipe,
@@ -66,10 +65,5 @@ export class DeliveriesController {
     @Body() updateDeliveryDto: UpdateDeliveryDto
   ): Promise<UpdateDeliveryResponseDto> {
     return this.deliveriesService.update(+id, updateDeliveryDto);
-  }
-
-  @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.deliveriesService.remove(+id);
   }
 }
