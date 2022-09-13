@@ -23,7 +23,7 @@ export class Coupons {
   })
   couponCode: string;
 
-  @Column({ name: "is_used", comment: "해당 컬럼은 쿠폰 사용 여부를 나타냅니다." })
+  @Column({ name: "is_used", default: false, comment: "해당 컬럼은 쿠폰 사용 여부를 나타냅니다." })
   isUsed: boolean;
 
   @CreateDateColumn({ name: "created_at", comment: "해당 컬럼은 쿠폰 생성 시간을 나타냅니다." })
