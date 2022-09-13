@@ -12,6 +12,7 @@ import {
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CouponsService } from "./coupons.service";
 import { CreateCouponDto, CreateCouponResponseDto } from "./dto/create-coupon.dto";
+import { DeleteCouponResponseDto } from "./dto/delete-coupon.dto";
 import { UpdateCouponDto } from "./dto/update-coupon.dto";
 
 @ApiTags("Coupons API")
@@ -52,8 +53,8 @@ export class CouponsController {
     return this.couponsService.update(+id, updateCouponDto);
   }
 
-  @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.couponsService.remove(+id);
+  @Delete(":code")
+  remove(@Param("code") code: string): Promise<DeleteCouponResponseDto> {
+    return this.couponsService.remove(code);
   }
 }

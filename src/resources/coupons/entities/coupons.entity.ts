@@ -41,6 +41,13 @@ export class Coupons {
   })
   discountAmount: number;
 
+  @Column({
+    type: "boolean",
+    comment: "해당 컬럼은 쿠폰이 삭제되었는지 여부르 나타냅니다.",
+    default: false,
+  })
+  isDeleted: boolean;
+
   @ManyToOne(() => CouponTypes, (couponType) => couponType.coupons)
   @JoinColumn()
   couponType: CouponTypes;
