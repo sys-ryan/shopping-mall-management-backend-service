@@ -60,7 +60,10 @@ export class CouponsService {
       throw new BadRequestException("Invalid coupon");
     }
 
-    // TODO: 쿠폰 만료기간 체크
+    // 쿠폰 만료기간 체크
+    if (coupon.expiresAt < new Date(Date.now())) {
+      throw new BadRequestException("Expired coupon.");
+    }
 
     coupon.isUsed = true;
 
