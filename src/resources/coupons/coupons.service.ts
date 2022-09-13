@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CouponTypesService } from "../coupon_types/coupon_types.service";
@@ -7,12 +7,17 @@ import { UpdateCouponDto } from "./dto/update-coupon.dto";
 import { Coupons } from "./entities/coupons.entity";
 
 import { v4 as uuidv4 } from "uuid";
+import { COUPONE_TYPE_ENUM } from "src/common/enums";
+import { DeliveryCostsService } from "../delivery_costs/delivery_costs.service";
+import { Orders } from "../orders/entities/orders.entity";
 
 @Injectable()
 export class CouponsService {
   constructor(
     @InjectRepository(Coupons) private couponsRepository: Repository<Coupons>,
-    private couponTypesService: CouponTypesService
+    @InjectRepository(Orders) private ordersRepository: Repository<Orders>,
+    private couponTypesService: CouponTypesService,
+    private deliveryCostsService: DeliveryCostsService
   ) {}
 
   /**
@@ -42,6 +47,57 @@ export class CouponsService {
     };
   }
 
+  async useCoupon(code: string) {
+    const coupon = await this.findOneByCouponCode(code);
+
+    // 쿠폰 사용 여부 검증
+    if (coupon.isUsed) {
+      throw new BadRequestException("Coupon already used.");
+    }
+
+    coupon.isUsed = true;
+
+    await this.couponsRepository.save(coupon);
+  }
+
+  async setDiscountAmount(amount: number) {}
+  // async useCoupon(code: string, orderId: number) {
+  //   const coupon = await this.findOneByCouponCode(code);
+
+  //   // 쿠폰 사용 여부 검증
+  //   if (coupon.isUsed) {
+  //     throw new BadRequestException("Coupon already used.");
+  //   }
+
+  //   const order = await this.ordersRepository.findOne({ where: { id: orderId } });
+  //   if (!order) {
+  //     throw new NotFoundException(`Order (id: ${orderId}) not found.`);
+  //   }
+
+  //   const deliveryCost = await this.deliveryCostsService.findOneByCountryCode(
+  //     order.country.countryCode
+  //   );
+
+  //   return deliveryCost;
+
+  //   // TODO: order -> 쿠폰 정보 추가 및 쿠폰 적용 후 가격 관련 필드 업데이트
+  //   order.coupon = coupon;
+
+  //   // TODO: coupon 엔터티 사용 처리
+  //   // const deliveryCost = await this.deliveryCostsService.findOneByCountryCode();
+  //   // return deliveryCost;
+
+  //   if (coupon.couponType.type === COUPONE_TYPE_ENUM.SHIPPING_FEE) {
+  //     // TODO: 배송비 할인 처리
+  //   } else if (coupon.couponType.type === COUPONE_TYPE_ENUM.FIXED_VALUE) {
+  //     // TODO: 정액 할인 처리
+  //   } else if (coupon.couponType.type === COUPONE_TYPE_ENUM.PERCENTAGE) {
+  //     // TODO: % 할인 처리
+  //   }
+
+  //   return coupon;
+  // }
+
   findAll() {
     return `This action returns all coupons`;
   }
@@ -49,7 +105,7 @@ export class CouponsService {
   async findOneByCouponCode(code: string) {
     const coupon = await this.couponsRepository.findOne({
       where: { couponCode: code },
-      relations: ["couponType"],
+      relations: ["couponType", "order"],
     });
 
     if (!coupon) {
