@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Query,
+  ParseIntPipe,
+} from "@nestjs/common";
 import { ApiCreatedResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CouponsService } from "./coupons.service";
 import { CreateCouponDto, CreateCouponResponseDto } from "./dto/create-coupon.dto";
@@ -23,7 +33,9 @@ export class CouponsController {
   }
 
   // @Post(":code")
-  // useCoupon(@Param("code") code: string) {}
+  // useCoupon(@Param("code") code: string, @Query("orderId", ParseIntPipe) orderId: number) {
+  //   return this.couponsService.useCoupon(code, orderId);
+  // }
 
   @Get()
   findAll() {

@@ -6,9 +6,17 @@ import { Orders } from "./entities/orders.entity";
 import { Users } from "../users/entities/users.entity";
 import { UsersModule } from "../users/users.module";
 import { CountriesModule } from "../countries/countries.module";
+import { DeliveryCostsModule } from "../delivery_costs/delivery_costs.module";
+import { CouponsModule } from "../coupons/coupons.module";
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Orders, Users]), UsersModule, CountriesModule],
+  imports: [
+    TypeOrmModule.forFeature([Orders, Users]),
+    UsersModule,
+    CountriesModule,
+    DeliveryCostsModule,
+    CouponsModule,
+  ],
   controllers: [OrdersController],
   providers: [OrdersService],
   exports: [OrdersService],
