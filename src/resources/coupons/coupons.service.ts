@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CouponTypesService } from "../coupon_types/coupon_types.service";
-import { CreateCouponDto } from "./dto/create-coupon.dto";
+import { CreateCouponDto, CreateCouponResponseDto } from "./dto/create-coupon.dto";
 import { UpdateCouponDto } from "./dto/update-coupon.dto";
 import { Coupons } from "./entities/coupons.entity";
 
@@ -15,7 +15,13 @@ export class CouponsService {
     private couponTypesService: CouponTypesService
   ) {}
 
-  async create(createCouponDto: CreateCouponDto) {
+  /**
+   * 쿠폰 발급 함수
+   * 쿠폰 코드는 uuidv4 를 사용하여 생성
+   * @param createCouponDto 쿠폰 발급을 위한 request body DTO
+   * @returns 쿠폰 코드와 만료 시간을 반환. { MessageChannel, couponCode, expiresAt }
+   */
+  async create(createCouponDto: CreateCouponDto): Promise<CreateCouponResponseDto> {
     const { couponTypeId, expiresAt } = createCouponDto;
 
     const couponType = await this.couponTypesService.findOneById(couponTypeId);

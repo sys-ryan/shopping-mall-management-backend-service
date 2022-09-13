@@ -24,7 +24,7 @@ export class CouponTypesService {
     };
   }
 
-  async findAll(filters: FindCouponTypeDto) {
+  async findAll(filters: FindCouponTypeDto): Promise<CouponTypes[]> {
     const whereOptions: FindOptionsWhere<CouponTypes> = {};
     // 쿠폰 타입 검색
     if (filters.type) {
@@ -45,7 +45,7 @@ export class CouponTypesService {
     return couponTypes;
   }
 
-  async findOneById(id: number) {
+  async findOneById(id: number): Promise<CouponTypes> {
     const couponType = await this.couponTypesRepository.findOne({ where: { id } });
 
     if (!couponType) {
