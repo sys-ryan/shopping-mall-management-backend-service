@@ -20,6 +20,11 @@ export class UsersService {
     return `This action returns a #${id} user`;
   }
 
+  /**
+   * id로 User를 조회합니다.
+   * @param id User ID
+   * @returns User
+   */
   async findOneById(id: number) {
     const user = await this.usersRepository.findOne({ where: { id } });
     if (!user) {

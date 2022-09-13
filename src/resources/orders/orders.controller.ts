@@ -1,21 +1,35 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, Query } from "@nestjs/common";
 import { OrdersService } from "./orders.service";
-import { CreateOrderDto } from "./dto/create-order.dto";
+import { CreateOrderDto, CreateOrderResponseDto } from "./dto/create-order.dto";
 import { UpdateOrderDto } from "./dto/update-order.dto";
+import { FindOrdersDto } from "./dto/find-orders.dto";
+import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
+import { Orders } from "./entities/orders.entity";
 
+@ApiTags("Orders API")
 @Controller("orders")
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
+  @ApiOperation({
+    summary: "주문 생성 API",
+    description: "주문을 생성합니다.",
+  })
+  @ApiCreatedResponse({ description: "주문을 생성합니다.", type: CreateOrderResponseDto })
   @Post()
   @HttpCode(201)
   create(@Body() createOrderDto: CreateOrderDto) {
     return this.ordersService.create(createOrderDto);
   }
 
+  @ApiOperation({
+    summary: "주문 목록 조회 API",
+    description: "주문 목록을 조회합니다.",
+  })
+  @ApiOkResponse({ description: "주문 목록을 조회합니다.", type: Orders, isArray: true })
   @Get()
-  findAll() {
-    return this.ordersService.findAll();
+  findAll(@Query() filters: FindOrdersDto) {
+    return this.ordersService.findAll(filters);
   }
 
   @Get(":id")

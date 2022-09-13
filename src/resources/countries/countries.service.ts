@@ -21,6 +21,11 @@ export class CountriesService {
     return `This action returns a #${id} country`;
   }
 
+  /**
+   * id로 Country를 조회합니다.
+   * @param id Country ID
+   * @returns
+   */
   async findOneById(id: number) {
     const country = await this.countriesRepository.findOne({ where: { id } });
     if (!country) {
@@ -30,6 +35,11 @@ export class CountriesService {
     return country;
   }
 
+  /**
+   * CounryCode로 Country를 조회합니다.
+   * @param code Country Code
+   * @returns Country
+   */
   async findOneByCountryCode(code: string) {
     const country = await this.countriesRepository.findOne({ where: { countryCode: code } });
     if (!country) {

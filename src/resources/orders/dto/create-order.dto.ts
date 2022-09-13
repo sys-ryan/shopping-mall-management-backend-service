@@ -1,5 +1,8 @@
 import { IsNotEmpty, IsNumber, IsString, Max, Min, MinLength } from "class-validator";
 
+/**
+ * Order 생성 시 request body validation을 위한 DTO 입니다.
+ */
 export class CreateOrderDto {
   @IsNumber()
   userId: number;
@@ -27,4 +30,9 @@ export class CreateOrderDto {
 
   @IsNumber()
   vccode: number;
+}
+
+export class CreateOrderResponseDto {
+  @IsString()
+  message: string;
 }
