@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CouponTypesService } from "../coupon_types/coupon_types.service";
@@ -46,8 +46,17 @@ export class CouponsService {
     return `This action returns all coupons`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} coupon`;
+  async findOneByCouponCode(code: string) {
+    const coupon = await this.couponsRepository.findOne({
+      where: { couponCode: code },
+      relations: ["couponType"],
+    });
+
+    if (!coupon) {
+      throw new NotFoundException(`Coupon (code: ${code}) not found.`);
+    }
+
+    return coupon;
   }
 
   update(id: number, updateCouponDto: UpdateCouponDto) {
