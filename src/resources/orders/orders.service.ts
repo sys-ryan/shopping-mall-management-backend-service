@@ -10,7 +10,7 @@ import { UsersService } from "../users/users.service";
 import { CreateOrderDto, CreateOrderResponseDto } from "./dto/create-order.dto";
 import { DeleteOrderResponseDto } from "./dto/delete-order.dto";
 import { FindOrdersDto } from "./dto/find-orders.dto";
-import { UpdateOrderDto } from "./dto/update-order.dto";
+import { UpdateOrderDto, UpdateOrderResponseDto } from "./dto/update-order.dto";
 import { Orders } from "./entities/orders.entity";
 
 @Injectable()
@@ -66,7 +66,7 @@ export class OrdersService {
 
     const finalDeliveryCost = originalDeliveryCost - discountedDeliveryCost;
 
-    // TODO: 상품 가격 계산 (쿠폰이 있다면 적용)
+    // 상품 가격 계산 (쿠폰이 있다면 적용)
     let discountedPrice = 0;
 
     // 정액 할인 쿠폰일 경우 처리
@@ -88,6 +88,7 @@ export class OrdersService {
       country,
       quantity,
       // coupon
+      coupon,
       originalPrice,
       discountedPrice,
       finalPrice,
@@ -103,10 +104,11 @@ export class OrdersService {
     await this.ordersRepository.save(newOrder);
 
     // 쿠폰에 실제 할인 가격 정보 set
+    // 추후에 coupon-types에서 쿠폰 총 할인액을 구하기 위해 유지
     if (discountedPrice !== 0) {
-      await this.couponsService.setDiscountAmount(discountedPrice);
+      await this.couponsService.setDiscountAmount(coupon.id, discountedPrice);
     } else if (discountedDeliveryCost !== 0) {
-      await this.couponsService.setDiscountAmount(discountedDeliveryCost);
+      await this.couponsService.setDiscountAmount(coupon.id, discountedDeliveryCost);
     }
 
     return {
@@ -173,12 +175,13 @@ export class OrdersService {
     return order;
   }
 
-  findOne(id: number) {
-    // TODO: Order id로 Order 조회 기능 구현
-    return `This action returns a #${id} order`;
-  }
-
-  async update(id: number, updateOrderDto: UpdateOrderDto) {
+  /**
+   * 주문 상태를 수정합니다. (in_progress, completed, canceled)
+   * @param id Order id
+   * @param updateOrderDto 주문 상태를 수정하기위한 request body DTO
+   * @returns { message }
+   */
+  async update(id: number, updateOrderDto: UpdateOrderDto): Promise<UpdateOrderResponseDto> {
     const { status } = updateOrderDto;
     const order = await this.findOneById(id);
 
@@ -187,10 +190,15 @@ export class OrdersService {
     await this.ordersRepository.save(order);
 
     return {
-      messate: `Order(id: ${id}) was successfully updated.`,
+      message: `Order(id: ${id}) was successfully updated.`,
     };
   }
 
+  /**
+   * 주문을 삭제합니다.
+   * @param id Order id
+   * @returns { message }
+   */
   async remove(id: number): Promise<DeleteOrderResponseDto> {
     const order = await this.findOneById(id);
 

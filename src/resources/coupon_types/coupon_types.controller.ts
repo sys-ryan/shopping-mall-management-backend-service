@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Param, Delete, Query, HttpCode } from "@ne
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { CouponTypesService } from "./coupon_types.service";
 import { CreateCouponTypeDto, CreateCouponTypeResponseDto } from "./dto/create-coupon_type.dto";
-import { FindCouponTypeDto } from "./dto/find-coupon_type.dto";
+import { FindCouponTypeDto, FindCouponTypeResponseDto } from "./dto/find-coupon_type.dto";
 import { CouponTypes } from "./entities/coupon_types.entity";
 
 @ApiTags("CouponTypes API")
@@ -22,9 +22,13 @@ export class CouponTypesController {
   }
 
   @ApiOperation({ summary: "쿠폰 유형 목록 조회 API", description: "쿠폰 유형 목록을 조회합니다." })
-  @ApiOkResponse({ description: "쿠폰 유형 목록을 조회합니다.", type: CouponTypes, isArray: true })
+  @ApiOkResponse({
+    description: "쿠폰 유형 목록을 조회합니다.",
+    type: FindCouponTypeResponseDto,
+    isArray: true,
+  })
   @Get()
-  findAll(@Query() filters: FindCouponTypeDto): Promise<CouponTypes[]> {
+  findAll(@Query() filters: FindCouponTypeDto): Promise<Partial<FindCouponTypeResponseDto>[]> {
     return this.couponTypesService.findAll(filters);
   }
 
@@ -34,7 +38,7 @@ export class CouponTypesController {
   })
   @ApiOkResponse({
     description: "쿠폰 유형 ID로 쿠폰 유형에 대한 정보를 조회합니다.",
-    type: CouponTypes,
+    type: FindCouponTypeResponseDto,
   })
   @Get(":id")
   findOneById(@Param("id") id: string): Promise<CouponTypes> {

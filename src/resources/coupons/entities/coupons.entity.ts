@@ -34,6 +34,7 @@ export class Coupons {
 
   @Column({
     type: "decimal",
+    name: "discount_amount",
     precision: 8,
     scale: 2,
     comment: "해당 컬럼은 쿠폰 사용으로 실제 할인된 금액을 나타냅니다.",

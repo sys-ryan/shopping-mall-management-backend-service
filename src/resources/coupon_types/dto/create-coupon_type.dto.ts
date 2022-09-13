@@ -1,6 +1,9 @@
 import { IsEnum, IsNumber, IsString, Min } from "class-validator";
 import { COUPONE_TYPE_ENUM } from "src/common/enums";
 
+/**
+ * 쿠폰 생성을 위한 request body DTO
+ */
 export class CreateCouponTypeDto {
   @IsString()
   name: string;
@@ -13,6 +16,9 @@ export class CreateCouponTypeDto {
   discountValue: number;
 }
 
+/**
+ * 쿠폰 생성 후 response body 구조
+ */
 export class CreateCouponTypeResponseDto {
   @IsString()
   message: string;

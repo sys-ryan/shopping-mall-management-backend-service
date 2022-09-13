@@ -6,8 +6,6 @@ import { CreateCouponDto, CreateCouponResponseDto } from "./dto/create-coupon.dt
 import { Coupons } from "./entities/coupons.entity";
 
 import { v4 as uuidv4 } from "uuid";
-import { COUPONE_TYPE_ENUM } from "src/common/enums";
-import { DeliveryCostsService } from "../delivery_costs/delivery_costs.service";
 import { Orders } from "../orders/entities/orders.entity";
 import { DeleteCouponResponseDto } from "./dto/delete-coupon.dto";
 
@@ -46,7 +44,11 @@ export class CouponsService {
     };
   }
 
-  async useCoupon(code: string) {
+  /**
+   * 쿠폰을 사용 처리하는 서비스 함수
+   * @param code 쿠폰 코드
+   */
+  async useCoupon(code: string): Promise<void> {
     const coupon = await this.findOneByCouponCode(code);
 
     // 쿠폰 사용 여부 검증
@@ -54,6 +56,7 @@ export class CouponsService {
       throw new BadRequestException("Coupon already used.");
     }
 
+    // 삭제 여부 체크
     if (coupon.isDeleted) {
       throw new BadRequestException("Invalid coupon");
     }
@@ -68,15 +71,29 @@ export class CouponsService {
     await this.couponsRepository.save(coupon);
   }
 
-  async setDiscountAmount(amount: number) {
-    // TODO: 쿠폰에 discount amount 설정 기능
+  /**
+   * 쿠폰 사용시 쿠폰으로 할인받은 금액을 쿠폰 정보에 저장하는 함수
+   * @param couponId 사용한 쿠폰 id
+   * @param amount 쿠폰 사용으로 할인받은 금액
+   */
+  async setDiscountAmount(couponId: number, amount: number): Promise<void> {
+    // 쿠폰에 discount amount 설정 기능
+    const coupon = await this.couponsRepository.findOne({ where: { id: couponId } });
+    if (!coupon) {
+      throw new NotFoundException("Coupon not found.");
+    }
+
+    coupon.discountAmount = amount;
+
+    await this.couponsRepository.save(coupon);
   }
 
-  findAll() {
-    return `This action returns all coupons`;
-  }
-
-  async findOneByCouponCode(code: string) {
+  /**
+   * 쿠폰 코드로 쿠폰에 대한 정보를 조회하는 서비스 함수
+   * @param code 쿠폰 코드
+   * @returns 쿠폰 정보
+   */
+  async findOneByCouponCode(code: string): Promise<Coupons> {
     const coupon = await this.couponsRepository.findOne({
       where: { couponCode: code },
       relations: ["couponType", "order"],
@@ -89,6 +106,11 @@ export class CouponsService {
     return coupon;
   }
 
+  /**
+   * 쿠폰 코드로 쿠폰을 삭제하는 함수 (soft delete)
+   * @param code 쿠폰 코드
+   * @returns { message }
+   */
   async remove(code: string): Promise<DeleteCouponResponseDto> {
     const coupon = await this.findOneByCouponCode(code);
     coupon.isDeleted = true;

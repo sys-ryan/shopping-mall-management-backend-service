@@ -11,8 +11,6 @@ export class CreateOrderDto {
   @MinLength(2)
   countryCode: string;
 
-  // TODO: couponId
-
   @IsNumber()
   quantity: number;
 
