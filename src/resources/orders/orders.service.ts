@@ -177,8 +177,17 @@ export class OrdersService {
     return `This action returns a #${id} order`;
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+  async update(id: number, updateOrderDto: UpdateOrderDto) {
+    const { status } = updateOrderDto;
+    const order = await this.findOneById(id);
+
+    order.payState = status;
+
+    await this.ordersRepository.save(order);
+
+    return {
+      messate: `Order(id: ${id}) was successfully updated.`,
+    };
   }
 
   async remove(id: number): Promise<DeleteOrderResponseDto> {
