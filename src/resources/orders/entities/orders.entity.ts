@@ -63,6 +63,37 @@ export class Orders {
 
   @Column({
     type: "decimal",
+    name: "original_delivery_cost",
+    precision: 8,
+    scale: 2,
+    default: 0,
+    comment: "해당 컬럼은 할인이 적용되지 않은 배송비를 나타냅니다.",
+  })
+  originalDeliveryCost: number;
+
+  @Column({
+    type: "decimal",
+    name: "discounted_delivery_cost",
+    precision: 8,
+    scale: 2,
+    default: 0,
+    comment: "해당 컬럼은 배송비 할인 쿠폰을 적용했을 경우, 할인되는 배송비를 나타냅니다.",
+  })
+  discountedDeliveryCost: number;
+
+  @Column({
+    type: "decimal",
+    name: "final_delivery_cost",
+    precision: 8,
+    scale: 2,
+    default: 0,
+    comment:
+      "해당 컬럼은 배송비 할인 쿠폰을 적용했을 경우, 주문자가 지불해야할 최종 배송비 나타냅니다.",
+  })
+  finalDeliveryCost: number;
+
+  @Column({
+    type: "decimal",
     name: "total_price",
     precision: 8,
     scale: 2,
