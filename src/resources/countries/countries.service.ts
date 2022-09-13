@@ -26,7 +26,7 @@ export class CountriesService {
    * @param id Country ID
    * @returns
    */
-  async findOneById(id: number) {
+  async findOneById(id: number): Promise<Countries> {
     const country = await this.countriesRepository.findOne({ where: { id } });
     if (!country) {
       throw new NotFoundException("Country not found.");
@@ -40,7 +40,7 @@ export class CountriesService {
    * @param code Country Code
    * @returns Country
    */
-  async findOneByCountryCode(code: string) {
+  async findOneByCountryCode(code: string): Promise<Countries> {
     const country = await this.countriesRepository.findOne({ where: { countryCode: code } });
     if (!country) {
       throw new NotFoundException("Country not found.");

@@ -18,7 +18,7 @@ export class OrdersController {
   @ApiCreatedResponse({ description: "주문을 생성합니다.", type: CreateOrderResponseDto })
   @Post()
   @HttpCode(201)
-  create(@Body() createOrderDto: CreateOrderDto) {
+  create(@Body() createOrderDto: CreateOrderDto): Promise<CreateOrderResponseDto> {
     return this.ordersService.create(createOrderDto);
   }
 
@@ -28,7 +28,7 @@ export class OrdersController {
   })
   @ApiOkResponse({ description: "주문 목록을 조회합니다.", type: Orders, isArray: true })
   @Get()
-  findAll(@Query() filters: FindOrdersDto) {
+  findAll(@Query() filters: FindOrdersDto): Promise<Orders[]> {
     return this.ordersService.findAll(filters);
   }
 

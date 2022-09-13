@@ -8,6 +8,7 @@ import { Users } from "./entities/users.entity";
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(Users) private usersRepository: Repository<Users>) {}
+
   create(createUserDto: CreateUserDto) {
     return "This action adds a new user";
   }
@@ -25,7 +26,7 @@ export class UsersService {
    * @param id User ID
    * @returns User
    */
-  async findOneById(id: number) {
+  async findOneById(id: number): Promise<Users> {
     const user = await this.usersRepository.findOne({ where: { id } });
     if (!user) {
       throw new NotFoundException("User not found");

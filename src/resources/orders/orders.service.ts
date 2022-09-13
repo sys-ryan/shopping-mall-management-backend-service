@@ -6,7 +6,7 @@ import { Between, FindOptionsWhere, Like, Repository } from "typeorm";
 import { CountriesService } from "../countries/countries.service";
 import { Users } from "../users/entities/users.entity";
 import { UsersService } from "../users/users.service";
-import { CreateOrderDto } from "./dto/create-order.dto";
+import { CreateOrderDto, CreateOrderResponseDto } from "./dto/create-order.dto";
 import { FindOrdersDto } from "./dto/find-orders.dto";
 import { UpdateOrderDto } from "./dto/update-order.dto";
 import { Orders } from "./entities/orders.entity";
@@ -24,7 +24,7 @@ export class OrdersService {
    * @param createOrderDto Order 생성시 필요한 request body 내용
    * @returns { message: "The order was successfully created.", }
    */
-  async create(createOrderDto: CreateOrderDto) {
+  async create(createOrderDto: CreateOrderDto): Promise<CreateOrderResponseDto> {
     const { quantity, originalPrice, buyrZipx, buyrCity, vccode } = createOrderDto;
     const user = await this.usersService.findOneById(createOrderDto.userId);
     const country = await this.countriesService.findOneByCountryCode(createOrderDto.countryCode);
@@ -54,7 +54,7 @@ export class OrdersService {
    * @param filters Orders 조회 시 필터링할 데이터
    * @returns 주문 목록
    */
-  async findAll(filters: FindOrdersDto) {
+  async findAll(filters: FindOrdersDto): Promise<Orders[]> {
     if ((filters.startDate && !filters.endDate) || (!filters.startDate && filters.endDate)) {
       throw new BadRequestException("startDate and endDate should be set together");
     }
