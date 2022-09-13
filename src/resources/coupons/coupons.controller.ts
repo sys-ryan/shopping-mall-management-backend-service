@@ -22,14 +22,17 @@ export class CouponsController {
     return this.couponsService.create(createCouponDto);
   }
 
+  // @Post(":code")
+  // useCoupon(@Param("code") code: string) {}
+
   @Get()
   findAll() {
     return this.couponsService.findAll();
   }
 
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.couponsService.findOne(+id);
+  @Get(":code")
+  findOneByCouponCode(@Param("code") code: string) {
+    return this.couponsService.findOneByCouponCode(code);
   }
 
   @Patch(":id")
