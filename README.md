@@ -126,12 +126,12 @@ test: e2e 테스트
 ✔️ 쿠폰 기능 구현 및 order 추가 기능 구현    
 ✔️ Users API 구현   
 ✔️ Delivery API 구현  
-✔️ KR 이 아닌 경우 배송비 실시간 환율 처리  
+⭐️ KR 이 아닌 경우 배송비 실시간 환율 처리  
 ✔️ 프로젝트 리펙토링    
 ✔️ Readme.md 작성  
-✔️ Unit test 수행   
-✔️ e2e test 수행      
-✔️ 배포     
+⭐️ Unit test 수행   
+⭐️ e2e test 수행      
+⭐️ 배포     
 
 # 테스트  
 
