@@ -131,7 +131,7 @@ test: e2e 테스트
 ✔️ Readme.md 작성  
 ✔️ Unit test 수행   
 ✔️ e2e test 수행      
-✔️ 배포  //작업중   
+✔️ 배포     
 
 # 테스트  
 
