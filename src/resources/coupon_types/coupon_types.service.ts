@@ -14,6 +14,11 @@ export class CouponTypesService {
     private dataSource: DataSource
   ) {}
 
+  /**
+   * 쿠폰 타입을 생성하는 서비스 함수
+   * @param createCouponTypeDto name, type, discountValue로 이루어진 객체를 받습니다.
+   * @returns { message }
+   */
   async create(createCouponTypeDto: CreateCouponTypeDto): Promise<CreateCouponTypeResponseDto> {
     const { name, type, discountValue } = createCouponTypeDto;
 
@@ -26,6 +31,11 @@ export class CouponTypesService {
     };
   }
 
+  /**
+   * 쿠폰 타입 목록 조회 함수
+   * @param filters type, name 필터를 설정하여 검색할 수 있습니다.
+   * @returns 쿠폰 타입 목록
+   */
   async findAll(filters: FindCouponTypeDto): Promise<Partial<FindCouponTypeResponseDto>[]> {
     const whereOptions: FindOptionsWhere<CouponTypes> = {};
     // 쿠폰 타입 검색
@@ -78,6 +88,11 @@ export class CouponTypesService {
     return couponTypes;
   }
 
+  /**
+   * 쿠폰 타입 조회 함수
+   * @param id 조회하고자 하는 쿠폰 타입 id
+   * @returns 쿠폰 타입
+   */
   async findOneById(id: number): Promise<CouponTypes> {
     const couponType = await this.couponTypesRepository.findOne({ where: { id } });
 
