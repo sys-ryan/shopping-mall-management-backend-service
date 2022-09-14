@@ -12,6 +12,7 @@ import {
 import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { DeliveriesService } from "./deliveries.service";
 import { CreateDeliveryDto, CreateDeliveryResponseDto } from "./dto/create-delivery.dto";
+import { FindDeliveryDto } from "./dto/find-delivery.dto";
 import { UpdateDeliveryDto, UpdateDeliveryResponseDto } from "./dto/update-delivery.dto";
 import { Deliveries } from "./entities/deliveries.entity";
 
@@ -36,19 +37,16 @@ export class DeliveriesController {
     description: "Order ID로 배송 상태를 조회합니다.",
     type: CreateDeliveryResponseDto,
   })
-  @Get()
-  findOneByOrderId(@Query("orderId", ParseIntPipe) orderId: number): Promise<Deliveries> {
+  @Get("/order/:orderId")
+  findOneByOrderId(@Param("orderId", ParseIntPipe) orderId: number): Promise<Deliveries> {
     return this.deliveriesService.findOneByOrderId(orderId);
   }
 
+  @ApiOperation({ summary: "배송 목록 조회 API", description: "배송 목록을 조회합니다." })
+  @ApiOkResponse({ description: "배송 목록을 조회힙니다.", type: Deliveries, isArray: true })
   @Get()
-  findAll() {
-    return this.deliveriesService.findAll();
-  }
-
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.deliveriesService.findOne(+id);
+  findAll(@Query() filters: FindDeliveryDto): Promise<Deliveries[]> {
+    return this.deliveriesService.findAll(filters);
   }
 
   @ApiOperation({

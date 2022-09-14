@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { OrdersService } from "../orders/orders.service";
 import { CreateDeliveryDto, CreateDeliveryResponseDto } from "./dto/create-delivery.dto";
+import { FindDeliveryDto } from "./dto/find-delivery.dto";
 import { UpdateDeliveryDto, UpdateDeliveryResponseDto } from "./dto/update-delivery.dto";
 import { Deliveries } from "./entities/deliveries.entity";
 
@@ -32,14 +33,14 @@ export class DeliveriesService {
     };
   }
 
-  findAll() {
-    // TODO: 배송 목록 조회 기능
-    return `This action returns all deliveries`;
-  }
-
-  findOne(id: number) {
-    // TODO: 배송 정보 조회 기능
-    return `This action returns a #${id} delivery`;
+  /**
+   * 배송 목록 조회 서비스 함수
+   * @param filters status에 따라 배송 목록 조회 결과를 필터링 할 수 있습니다.
+   * @returns 배송 목록
+   */
+  async findAll(filters: FindDeliveryDto): Promise<Deliveries[]> {
+    const deliveries = await this.deliveriesRepository.find({ where: { status: filters.status } });
+    return deliveries;
   }
 
   /**
