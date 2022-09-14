@@ -34,6 +34,9 @@ export class CreateOrderDto {
   couponCode: string;
 }
 
+/**
+ * 주문 생성 respnose 구조
+ */
 export class CreateOrderResponseDto {
   @IsString()
   message: string;
