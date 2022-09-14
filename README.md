@@ -59,7 +59,7 @@
 
 swagger를 사용하여 제작한 API Docs
 
-[👉 Swagger Docs 바로가기]() // TODO: 작업중
+[👉 Swagger Docs 바로가기](https://app.swaggerhub.com/apis-docs/sys-ryan/shopping-mall_management_backend_service/1.0)
 
 # 구현 과정  
 
@@ -211,8 +211,7 @@ test: e2e 테스트
 
 # 서비스 배포 
 
-> 배포 url
+<img width="1192" alt="스크린샷 2022-09-15 오전 12 12 56" src="https://user-images.githubusercontent.com/63445753/190193882-9bb294f0-475b-4058-bd33-89bb5b08c5aa.png">
 
-👉 <!--https://posts-with-weather-service.herokuapp.com/api/v1--> // TODO: 배포 Url
+<img width="1192" alt="스크린샷 2022-09-15 오전 12 11 33" src="https://user-images.githubusercontent.com/63445753/190193671-25c1df88-8717-4326-8b0d-5d15e788ef48.png">
 
-// TODO: 배포 캡쳐 이미지
