@@ -8,6 +8,7 @@ import { UsersModule } from "../users/users.module";
 import { CountriesModule } from "../countries/countries.module";
 import { DeliveryCostsModule } from "../delivery_costs/delivery_costs.module";
 import { CouponsModule } from "../coupons/coupons.module";
+import { HttpModule } from "@nestjs/axios";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { CouponsModule } from "../coupons/coupons.module";
     CountriesModule,
     DeliveryCostsModule,
     CouponsModule,
+    HttpModule,
   ],
   controllers: [OrdersController],
   providers: [OrdersService],
