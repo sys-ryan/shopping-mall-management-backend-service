@@ -127,11 +127,11 @@ test: e2e 테스트
 ✔️ Users API 구현   
 ✔️ Delivery API 구현  
 ✔️ KR 이 아닌 경우 배송비 실시간 환율 처리  
-✔️ 프로젝트 리펙토링  
-✔️ Readme.md 작성  (작업중) 
-✔️ Unit test 수행 (작업중)
-✔️ e2e test 수행  //작업중  
-✔️ 배포  //작업중 
+✔️ 프로젝트 리펙토링    
+✔️ Readme.md 작성  (작업중)   
+✔️ Unit test 수행 (작업중)  
+✔️ e2e test 수행  //작업중    
+✔️ 배포  //작업중   
 
 # 테스트  
 
