@@ -2,7 +2,7 @@ import { HttpService } from "@nestjs/axios";
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { lastValueFrom } from "rxjs";
-import { COUPONE_TYPE_ENUM, PAY_STATE_ENUM } from "src/common/enums";
+import { COUPONE_TYPE_ENUM, PAY_STATE_ENUM } from "../../common/enums";
 import { Between, FindOptionsWhere, Like, Repository } from "typeorm";
 import { CountriesService } from "../countries/countries.service";
 import { CouponsService } from "../coupons/coupons.service";

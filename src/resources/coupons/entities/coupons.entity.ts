@@ -1,5 +1,5 @@
-import { CouponTypes } from "src/resources/coupon_types/entities/coupon_types.entity";
-import { Orders } from "src/resources/orders/entities/orders.entity";
+import { CouponTypes } from "../../../resources/coupon_types/entities/coupon_types.entity";
+import { Orders } from "../../../resources/orders/entities/orders.entity";
 import {
   Column,
   CreateDateColumn,

@@ -1,6 +1,6 @@
 import { DeliveryCosts } from "../../delivery_costs/entities/delivery_costs.entity";
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Orders } from "src/resources/orders/entities/orders.entity";
+import { Orders } from "../../../resources/orders/entities/orders.entity";
 
 @Entity()
 export class Countries {

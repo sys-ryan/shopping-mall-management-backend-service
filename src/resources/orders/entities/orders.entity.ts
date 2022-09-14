@@ -1,8 +1,8 @@
-import { PAY_STATE_ENUM } from "src/common/enums";
-import { Countries } from "src/resources/countries/entities/countries.entity";
-import { Coupons } from "src/resources/coupons/entities/coupons.entity";
-import { Deliveries } from "src/resources/deliveries/entities/deliveries.entity";
-import { Users } from "src/resources/users/entities/users.entity";
+import { PAY_STATE_ENUM } from "../../../common/enums";
+import { Countries } from "../../../resources/countries/entities/countries.entity";
+import { Coupons } from "../../../resources/coupons/entities/coupons.entity";
+import { Deliveries } from "../../../resources/deliveries/entities/deliveries.entity";
+import { Users } from "../../../resources/users/entities/users.entity";
 import {
   Column,
   CreateDateColumn,
