@@ -75,27 +75,48 @@ swagger를 사용하여 제작한 API Docs
 
 > 데이터베이스는 AWS RDS - mysql로 생성했습니다.
 
+![shopping-mall-management-backend-service (3)](https://user-images.githubusercontent.com/63445753/190066303-454ee49f-1a00-4df9-a167-6827ba18a37e.png)
 
-// TODO: 모델링 이미지 첨부 
 
 ### 폴더 구조
 
 ```
-// TODO: 폴더 구조 작성
+shopping-mall-management-backend-service/
+├─ src/
+│  ├─ common/
+│  ├─ database/
+│  ├─ resources/
+│  │  ├─ countries/
+│  │  ├─ coupon_types/
+│  │  ├─ deliveries/
+│  │  ├─ coupons/
+│  │  ├─ delivery_costs/
+│  │  ├─ orders/
+│  │  ├─ users/
+│  ├─ app.module.ts
+│  ├─ app.controller.ts
+│  ├─ app.service.ts
+│  ├─ main.ts
+├─ test/
 ```
 
-<!--- posts, weather 폴더를 나누고, DTO 및 Entity를 작성하여 테이블 생성
+resources 폴더 내에 백엔드 서비스에 필요한 리소스들을 기준으로 폴더로 나누고, DTO 및 Entity를 작성하여 테이블 생성
+- countries : 국가 명, 국가 코드 리소스
+- coupon_types : 쿠폰 타입 리소스
+- coupons : 쿠폰 리소스
+- deliveries : 배송 리소스
+- delivery_costs : 배송비 리소스
+- orders : 주문 리소스
+- users : 주문자(사용자) 리소스
 
-  - posts 폴더에 module, controller, service 가 정의되어 있음
-  - weather 폴더에 module, service가 정의되어 있음
+각 리소스 폴더에 module, controller, service가 정의되어 있음  
 
-  posts module에서 weather module을 import 하고, app module에서 posts module을 통합
+database: 데이터베이스 리소스 
 
-- guard : 인증/인가 작업을 위한 Guard 파일들을 저장
+common: enum, type 등 프로젝트에서 공통으로 사용되는 파일 저장
 
-- interceptors: response data serialization 적용
+test: e2e 테스트
 
-- test: e2e 테스트-->
 
 ## 작업 내역  
 
