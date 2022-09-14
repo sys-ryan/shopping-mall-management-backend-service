@@ -16,6 +16,9 @@ export class FindCouponTypeDto {
   name: string;
 }
 
+/**
+ * 쿠폰 타입 조회시 resopnse 구조
+ */
 export class FindCouponTypeResponseDto {
   id: number;
 

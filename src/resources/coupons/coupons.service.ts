@@ -13,7 +13,6 @@ import { DeleteCouponResponseDto } from "./dto/delete-coupon.dto";
 export class CouponsService {
   constructor(
     @InjectRepository(Coupons) private couponsRepository: Repository<Coupons>,
-    @InjectRepository(Orders) private ordersRepository: Repository<Orders>,
     private couponTypesService: CouponTypesService
   ) {}
 
