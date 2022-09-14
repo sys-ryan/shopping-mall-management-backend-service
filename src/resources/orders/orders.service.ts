@@ -1,5 +1,9 @@
+import { HttpService } from "@nestjs/axios";
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { AxiosResponse } from "axios";
+import { response } from "express";
+import { lastValueFrom, map } from "rxjs";
 import { COUPONE_TYPE_ENUM, PAY_STATE_ENUM } from "src/common/enums";
 import { Between, FindOptionsWhere, Like, Repository } from "typeorm";
 import { CountriesService } from "../countries/countries.service";
@@ -20,7 +24,8 @@ export class OrdersService {
     private usersService: UsersService,
     private countriesService: CountriesService,
     private couponsService: CouponsService,
-    private deliveryCostsService: DeliveryCostsService
+    private deliveryCostsService: DeliveryCostsService,
+    private httpService: HttpService
   ) {}
 
   /**
@@ -46,9 +51,8 @@ export class OrdersService {
     }
 
     // 배송비 계산 (쿠폰이 있다면 적용)
-    // TODO: KR 이 아닌 경우 환율 처리
-    // TODO: 환율 API 로 환율 받아오기
-    const USD_KRW = 1200;
+    // KR 이 아닌 경우 실시간 환율을 받아와 달러로 환산
+    const USD_KRW = await this.getCurrentUSDKRW();
 
     const deliveryCost = await this.deliveryCostsService.findOne(country.countryCode, quantity);
 
@@ -122,6 +126,7 @@ export class OrdersService {
    * @returns 주문 목록
    */
   async findAll(filters: FindOrdersDto): Promise<Orders[]> {
+    this.getCurrentUSDKRW();
     if ((filters.startDate && !filters.endDate) || (!filters.startDate && filters.endDate)) {
       throw new BadRequestException("startDate and endDate should be set together");
     }
@@ -207,5 +212,18 @@ export class OrdersService {
     return {
       message: `Order(id: ${id}) was successfully deleted.`,
     };
+  }
+
+  /**
+   * 실시간 USD-KRW 환율 정보를 조회합니다.
+   * @returns 실시간 USDKRW 환율
+   */
+  private async getCurrentUSDKRW() {
+    const url = `https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD`;
+
+    const response$ = this.httpService.get(url);
+    const data = (await lastValueFrom(response$)).data;
+
+    return data[0].basePrice;
   }
 }
