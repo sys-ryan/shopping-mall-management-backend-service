@@ -1,5 +1,5 @@
 import { IsEnum, IsOptional } from "class-validator";
-import { DELIVERY_STATUS_ENUM } from "src/common/enums";
+import { DELIVERY_STATUS_ENUM } from "../../../common/enums";
 
 export class FindDeliveryDto {
   @IsOptional()

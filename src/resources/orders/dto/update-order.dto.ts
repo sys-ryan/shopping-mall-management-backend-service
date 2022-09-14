@@ -1,5 +1,5 @@
 import { IsEnum, IsString } from "class-validator";
-import { PAY_STATE_ENUM } from "src/common/enums";
+import { PAY_STATE_ENUM } from "../../../common/enums";
 
 /**
  * 주문 상태 변경 request body 구조
