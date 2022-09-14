@@ -1,9 +1,16 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import * as Joi from 'joi';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { DatabaseModule } from './database/database.module';
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import * as Joi from "joi";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { DatabaseModule } from "./database/database.module";
+import { UsersModule } from "./resources/users/users.module";
+import { CountriesModule } from "./resources/countries/countries.module";
+import { DeliveryCostsModule } from "./resources/delivery_costs/delivery_costs.module";
+import { CouponTypesModule } from "./resources/coupon_types/coupon_types.module";
+import { CouponsModule } from "./resources/coupons/coupons.module";
+import { DeliveriesModule } from "./resources/deliveries/deliveries.module";
+import { OrdersModule } from "./resources/orders/orders.module";
 
 @Module({
   imports: [
@@ -19,6 +26,13 @@ import { DatabaseModule } from './database/database.module';
       }),
     }),
     DatabaseModule,
+    UsersModule,
+    CountriesModule,
+    DeliveryCostsModule,
+    CouponTypesModule,
+    CouponsModule,
+    DeliveriesModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
