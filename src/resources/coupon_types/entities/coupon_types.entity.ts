@@ -1,5 +1,5 @@
-import { COUPONE_TYPE_ENUM } from "src/common/enums";
-import { Coupons } from "src/resources/coupons/entities/coupons.entity";
+import { COUPONE_TYPE_ENUM } from "../../../common/enums";
+import { Coupons } from "../../../resources/coupons/entities/coupons.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()

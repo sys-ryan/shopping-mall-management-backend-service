@@ -1,5 +1,5 @@
-import { DELIVERY_STATUS_ENUM } from "src/common/enums";
-import { Orders } from "src/resources/orders/entities/orders.entity";
+import { DELIVERY_STATUS_ENUM } from "../../../common/enums";
+import { Orders } from "../../../resources/orders/entities/orders.entity";
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
