@@ -6,7 +6,6 @@ import { CreateCouponDto, CreateCouponResponseDto } from "./dto/create-coupon.dt
 import { Coupons } from "./entities/coupons.entity";
 
 import { v4 as uuidv4 } from "uuid";
-import { Orders } from "../orders/entities/orders.entity";
 import { DeleteCouponResponseDto } from "./dto/delete-coupon.dto";
 
 @Injectable()
