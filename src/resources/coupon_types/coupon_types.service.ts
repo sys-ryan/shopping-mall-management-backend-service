@@ -82,7 +82,6 @@ export class CouponTypesService {
     const couponType = await this.couponTypesRepository.findOne({ where: { id } });
 
     const usedCoupons = await this.couponsRepository.find({ where: { couponType, isUsed: true } });
-    console.log(usedCoupons);
 
     const usedCount = usedCoupons.length;
 
