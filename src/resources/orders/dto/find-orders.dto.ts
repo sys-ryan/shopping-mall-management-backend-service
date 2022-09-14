@@ -1,7 +1,7 @@
 import { ApiPropertyOptional } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
 import { IsDate, IsEnum, IsOptional, IsString } from "class-validator";
-import { PAY_STATE_ENUM } from "src/common/enums";
+import { PAY_STATE_ENUM } from "../../../common/enums";
 
 /**
  * 20220902 와 같은 날짜 string을 받아 파싱하여 해당 날짜에 해당하는 Date object를 반환합니다.

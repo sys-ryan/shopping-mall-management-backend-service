@@ -1,6 +1,6 @@
 import { Transform } from "class-transformer";
 import { IsDate, IsNumber, IsString } from "class-validator";
-import { getDateFromString } from "src/resources/orders/dto/find-orders.dto";
+import { getDateFromString } from "../../../resources/orders/dto/find-orders.dto";
 
 /**
  * 쿠폰 발급을 위한 request body DTO

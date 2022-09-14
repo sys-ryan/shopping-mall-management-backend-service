@@ -1,5 +1,5 @@
 import { IsEnum, IsNumber, IsString, Min } from "class-validator";
-import { COUPONE_TYPE_ENUM } from "src/common/enums";
+import { COUPONE_TYPE_ENUM } from "../../../common/enums";
 
 /**
  * 쿠폰 생성을 위한 request body DTO

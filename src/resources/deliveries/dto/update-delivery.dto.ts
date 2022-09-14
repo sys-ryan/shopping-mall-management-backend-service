@@ -1,5 +1,5 @@
 import { IsEnum, IsString } from "class-validator";
-import { DELIVERY_STATUS_ENUM } from "src/common/enums";
+import { DELIVERY_STATUS_ENUM } from "../../../common/enums";
 
 /**
  * Delivery 수정 시 request body 구조
