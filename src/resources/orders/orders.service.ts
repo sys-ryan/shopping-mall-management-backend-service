@@ -41,15 +41,6 @@ export class OrdersService {
     const user = await this.usersService.findOneById(createOrderDto.userId);
     const country = await this.countriesService.findOneByCountryCode(createOrderDto.countryCode);
 
-    // coupon
-    let coupon: Coupons;
-    if (couponCode) {
-      coupon = await this.couponsService.findOneByCouponCode(couponCode);
-
-      // coupon 사용 여부 체크 및 사용 처리
-      await this.couponsService.useCoupon(couponCode);
-    }
-
     // 배송비 계산 (쿠폰이 있다면 적용)
     // KR 이 아닌 경우 실시간 환율을 받아와 달러로 환산
     const USD_KRW = await this.getCurrentUSDKRW();
@@ -62,6 +53,15 @@ export class OrdersService {
     // KR이 아닌 경우 환율 반영
     if (country.countryCode !== "KR") {
       originalDeliveryCost = +(originalDeliveryCost / USD_KRW).toFixed(2);
+    }
+
+    // coupon
+    let coupon: Coupons;
+    if (couponCode) {
+      coupon = await this.couponsService.findOneByCouponCode(couponCode);
+
+      // coupon 사용 여부 체크 및 사용 처리
+      await this.couponsService.useCoupon(couponCode);
     }
 
     if (coupon?.couponType.type === COUPONE_TYPE_ENUM.SHIPPING_FEE) {
