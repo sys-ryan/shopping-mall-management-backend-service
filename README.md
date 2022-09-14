@@ -128,9 +128,9 @@ test: e2e 테스트
 ✔️ Delivery API 구현  
 ✔️ KR 이 아닌 경우 배송비 실시간 환율 처리  
 ✔️ 프로젝트 리펙토링    
-✔️ Readme.md 작성  (작업중)   
-✔️ Unit test 수행 (작업중)  
-✔️ e2e test 수행  //작업중    
+✔️ Readme.md 작성  
+✔️ Unit test 수행   
+✔️ e2e test 수행      
 ✔️ 배포  //작업중   
 
 # 테스트  
@@ -139,70 +139,75 @@ test: e2e 테스트
 
 ### 테스트 커버리지
 
-<!--#### Weather service
+#### Orders Service (주문)
 
-- 날씨 정보를 Weather API로부터 fetch 하는지 검증 (fetchWeather)
-- 날씨 정보를 정상적으로 저장하는지 검증 (saveCurrentWeather)
+- 주문 생성 기능 검증
+- 주문 목록 조회 기능 검증
+- 주문 조회 기증 검증
+- 주문 상태 변경 기능 검증
 
-#### Posts service
+#### Deliveries Service (배송)
 
-- 게시글 생성
+- 주문 발송 처리(배송 정보 생성) 기능 검증
+- 배송 상태 업데이트 (배송 중, 배송 완료) 기능 검증
+- 배송 목록 조회 기능 검증
 
-  - 게시글 생성 성공 검증 (날씨 정보 포함 확인)
-  - 게시글 생성시 비밀번호 암호화 검증
+#### Coupons Service (쿠폰)
 
-- 게시글 조회
+쿠폰 타입
 
-  - 게시글 리스트 조회 성공 검증
-  - 게시글 조회 성공 검증
-  - 존재하지 않는 게시글 id로 조회시 Exception 검증
+- 쿠폰 타입 생성 기능 검증  
 
-- 게시글 수정
+쿠폰
 
-  - 게시글 수정 성공 검증
-  - 존재하지 않는 게시글 id로 수정시 Exception 검증
+- 쿠폰 코드 발급 기능 검증
+- 사용 처리 기능 검증 (이미 사용되었을 경우 throws exception)
+- 사용 처리 기능 검증 (쿠폰이 만료되었을 경우 throws exception)
+- 사용 처리 기능 검증 (존재하지 않는 쿠폰 코드를 사용하는 경우 throws exception)  
 
-- 게시글 삭제
-  - 게시글 삭제 성공 검증
-  - 존재하지 않는 게시글 id로 삭제시 Exception 검증
--->
 ### 테스트 결과
 
-<!--#### Weather service
+#### Orders Service (주문)
+<img width="838" alt="스크린샷 2022-09-14 오후 11 37 30" src="https://user-images.githubusercontent.com/63445753/190185588-5a630325-5ab0-42e9-b630-a93234dca155.png">
 
-<img width="534" alt="스크린샷 2022-09-07 오후 7 14 35" src="https://user-images.githubusercontent.com/63445753/188853738-7496f78c-1662-4bf3-a7fa-ba001976abec.png">
 
-#### Posts Service
+#### Deliveries Service (배송)
+<img width="834" alt="스크린샷 2022-09-14 오후 11 37 56" src="https://user-images.githubusercontent.com/63445753/190185626-ff7c5226-c393-484c-8335-7e2d1af9465c.png">
 
-<img width="615" alt="스크린샷 2022-09-07 오후 7 15 05" src="https://user-images.githubusercontent.com/63445753/188853775-ee31388a-cbea-41ad-a682-4de0f8c60b3a.png">
 
--->
+#### Coupons Service (쿠폰)
+<img width="744" alt="스크린샷 2022-09-14 오후 11 39 44" src="https://user-images.githubusercontent.com/63445753/190185685-f0d67a20-0840-4b7e-bb47-5f7e67cc5b2f.png">  
+
+<img width="909" alt="스크린샷 2022-09-14 오후 11 39 06" src="https://user-images.githubusercontent.com/63445753/190185706-d3a9c85c-51d9-497e-8ef0-23407bf87408.png">
 
 ## e2e Test
 
 ### 테스트 커버리지
 
-<!--- 게시글 저장
+#### 주문 내역
 
-  - title, content에 이모지 저장 검증
-  - title 20자 이상일 경우 생성 실패 검증
-  - content 200자 이상일 경우 생성 실패 검증
-  - 비밀번호 정책 (6자이상 숫자 1개이상 반드시 포함) 위반시 생성 실패 검증
+- 주문 내역 열람 기능 검증
+- 주문 내역 검색 기능 검증 (by 주문 상태)
+- 주문 내역 검색 기능 검증 (by 시작일자, 종료일자)
+- 주문 내역 검색 기능 검증 (by 주문자 명)
+- 주문 내역 검색 기능 검증 (by 국가코드)
 
-- 게시글 조회
+#### 쿠폰
 
-  - 게시글 리스트 조회시 default pagenation option 적용 검증
-
-- 게시글 수정
-
-  - 잘못된 비밀번호로 게시글 수정 요청시 exception 검증
-
-- 게시글 삭제
-  - 잘못된 비밀번호로 게시글 삭제 요청시 exception 검증-->
+- 쿠폰 타입 목록 조회 기능 검증 (쿠폰 타입별 사용 횟수, 쿠폰 타입별 총 할인액 정보를 포함해야 함)
+- 쿠폰 사용에 따른 할인 적용 기능 검증 (배송비 할인) // == 구매 내역 추가 테스트
+- 쿠폰 사용에 따른 할인 적용 기능 검증 (상품 가격 정액 할인) // == 구매 내역 추가 테스트
+- 쿠폰 사용에 따른 할인 적용 기능 검증 (상품 가격 % 할인) // == 구매 내역 추가 테스트
 
 ### 테스트 결과
 
-<!--<img width="795" alt="스크린샷 2022-09-07 오후 7 13 36" src="https://user-images.githubusercontent.com/63445753/188853406-7738688e-b796-4a26-ad48-cecf627fe0a9.png">-->
+#### 주문 내역
+
+<img width="840" alt="스크린샷 2022-09-14 오후 11 43 41" src="https://user-images.githubusercontent.com/63445753/190187321-838dc96b-1403-4a49-ba2c-da66c4169ba7.png">
+
+#### 쿠폰
+
+<img width="829" alt="스크린샷 2022-09-14 오후 11 47 08" src="https://user-images.githubusercontent.com/63445753/190187435-855d7edc-cdd3-4d89-a65e-d62ed9b39384.png">
 
 # 서비스 배포 
 
